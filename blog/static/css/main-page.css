@@ -1,0 +1,28 @@
+.main-page-title{
+        text-align: center;
+        height: calc(100vh - 56px);
+        background-image: url(../image/home/book2.png);
+        background-size:cover ;
+        background-position: 0px 80%;
+        padding-top:20% ;
+        color:white;
+}
+.page-container{
+        padding-left: 45px;
+        padding-right: 45px;
+}
+.pagination{
+        width: fit-content;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+}
+.card{
+        margin-top: 12px;
+        margin-bottom: 12px;
+}
+
+.requered::after {
+        content: "*";
+        color: red;
+    }

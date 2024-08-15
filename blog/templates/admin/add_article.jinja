@@ -1,0 +1,43 @@
+{% extends "base.jinja" %}
+{% block base %}
+
+<div class="card" style="width: 50%;margin:auto;margin-top:50px;">
+    <div class="card-body">
+        <h2 class="card-title" style="text-align:center">اضافة مقاله</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{form.title.label(class="form-label requered")}}
+                {{form.title(class="form-control")}}
+            </div>
+            <div class="mb-3">
+                {{form.content.label(class="requered")}}
+                {{form.content()}}
+            </div>
+
+            <div class="input-group mb-3" dir="ltr">
+                {{form.article_img(class="form-control")}}
+                {{form.article_img.label(class="input-group-text")}}
+            </div>
+
+
+
+            {{form.submit(class="btn btn-success", id='buttom')}}
+        </form>
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='content', height='300', contentsLangDirection='rtl', contentLanguage='ar',
+        language='ar', defaultLanguage='ar') }}
+        {#
+        <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> #}
+        <script src="{{url_for('static', filename='js/ckeditor_cfg.js')}}"></script>
+    </div>
+</div>
+
+
+<script src="{{url_for('static', filename='js/translate_button.js')}}"></script>
+{# تغيير الالوان #}
+<script src="{{url_for('static', filename='js/change-items.js')}}"></script>
+
+{% endblock base %}

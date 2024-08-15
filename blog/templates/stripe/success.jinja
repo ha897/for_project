@@ -1,0 +1,10 @@
+{% extends "base.jinja" %}
+
+{% block base %}
+<div class="container mt-5">
+    <h4>
+        عملية شراء ناجحة سيتم ارسل الكتب لك عن طريق الاليميل
+        <a class="d-block mt-3" href="{{ url_for('book_controller.books') }}"> > عودة</a>
+    </h4>
+</div>
+{% endblock %}

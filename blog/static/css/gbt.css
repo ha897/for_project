@@ -1,0 +1,53 @@
+.chat-body{
+    width: 100%;
+}
+.list-chat{
+    height: 71vh;
+    overflow-y: scroll;
+    scrollbar-color: black transparent;
+}
+.gbt-chat {
+    width: 60%;
+}
+
+.my-chat {
+    width: 60%;
+    margin-right: 40%;
+    background-color:#c9ff8a !important;
+}
+
+.gbt-chat,
+.my-chat{
+    margin-top:12px;
+}
+.controller-chat > *{
+    height: 100px;
+}
+.controller-chat{
+    margin: 0px 12px;
+}
+
+.spener-loading{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 5px solid;
+    border-left-color: transparent ;
+    /* اسم اللانميشن */
+    animation-name: loading;
+    /* زمن الانميشن */
+    animation-duration: 0.5s;
+    /* حركو ما لا نهاية */
+    animation-iteration-count: infinite;
+    /* حركة الانميشن منتضمة */
+    animation-timing-function:linear;
+  }
+  
+  @keyframes loading{
+    from{
+      transform: rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg);
+    }
+  }

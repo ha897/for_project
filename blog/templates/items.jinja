@@ -1,0 +1,40 @@
+{% extends "base.jinja" %}
+{% block base %}
+{% if books %}
+{% from "partials/_macros.jinja" import book_macro %}
+{#  #}
+<h1 class="article-page-title">الكتب</h1>
+
+<div class="article-page-div">
+
+    <h1 class="title-content">الكتب</h1>
+{{ book_macro(books, pagination) }}
+</div>
+{#  #}
+
+{% elif articles %}
+{% from "partials/_macros.jinja" import articles_macro%}
+    <h1 class="article-page-title">المقالات</h1>
+{#  #}
+<div class="article-page-div">
+    <h1 class="title-content">المقالات</h1>
+{{articles_macro(articles, pagination)}}
+</div>
+<script src="{{url_for('static', filename='js/change-items.js')}}"></script>
+
+{% elif audioBooks %}
+{% from "partials/_macros.jinja" import audio_book_macro %}
+{#  #}
+<h1 class="article-page-title">الكتب</h1>
+
+<div class="article-page-div">
+
+    <h1 class="title-content">الكتب</h1>
+{{ audio_book_macro(audioBooks, pagination) }}
+</div>
+{% else %}
+!!!!!!!!!???????????
+{% endif %}
+
+
+{% endblock base %}

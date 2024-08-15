@@ -1,0 +1,56 @@
+{% extends "base.jinja" %}
+{% block base %}
+
+<div class="card" style="width: 50%;margin:auto;margin-top:50px;">
+    <div class="card-body">
+        <h2 class="card-title" style="text-align:center">اضافة كتاب صوتي</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{form.title.label(class="form-label requered")}}
+                {{form.title(class="form-control", value=values.title)}}
+            </div>
+            <div class="mb-3">
+                {{form.description.label(class="form-label requered")}}
+                {{form.description(class="form-control", id='description')}}
+                <script>
+                    let description = document.getElementById("description")
+                    description.innerHTML = `{{values.description}}`
+                </script>
+            </div>
+          
+            <div class="input-group mb-3"  dir="ltr">
+                {{form.book_cover(class="form-control")}}
+                {{form.book_cover.label(class="input-group-text")}}
+            </div>
+            <div class="input-group mb-3"  dir="ltr">
+                {{form.audio_file(class="form-control")}}
+                {{form.audio_file.label(class="input-group-text requered")}}
+            </div>
+            <div class="mb-3">
+                {{form.category.label(class="form-label requered")}}
+                {{form.category(class="form-control", id='category')}}
+                <script>
+                    // تحديد الخيار "Physiognomy" عند تحميل الصفحة
+                    document.getElementById('category').value = `{{values.category|replace("CATEGORY.","")}}`
+                </script>
+            </div>
+            <div class="mb-3">
+                {{form.price.label(class="form-label requered")}}
+                {{form.price(class="form-control", value=values.price)}}
+            </div>
+            <div class="mb-3">
+                <span class="requered">المدة</span>
+                {{form.duration_minuts(class="form-control", placeholder="الدقائق", style="width:20%;display:inline-block", value=minutes | int)}}
+                {{form.duration_hours(class="form-control", placeholder="الساعات", style="width:20%;display:inline-block",value=hours | int)}}
+            </div>
+
+
+            {{form.submit(class="btn btn-success", id='buttom')}}
+        </form>
+
+    </div>
+</div>
+{% endblock base %}

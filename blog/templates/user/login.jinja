@@ -1,0 +1,28 @@
+{% extends "base.jinja" %}
+{% block base %}
+
+<div class="card" style="width: 50%;margin:auto;margin-top:50px;">
+    <div class="card-body">
+        <h2 class="card-title" style="text-align:center">تسجيل الدخول</h2>
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{form.username.label(class="form-label requered")}}
+                {{form.username(class="form-control")}}
+            </div>
+            <div class="mb-3">
+                {{form.password.label(class="form-label requered")}}
+                {{form.password(class="form-control")}}
+                <a href="{{url_for('user_controller.to_reset_password')}}">هل نسيت كلمة المرور؟</a>
+            </div>
+            <div class="mb-3">
+            {{form.remember(class="form-check-input")}}
+            {{form.remember.label(class="form-check-label")}}
+            </div>
+
+            {{form.submit(class="btn btn-success", id='buttom')}}
+            <form>
+    </div>
+</div>
+{% endblock base %}

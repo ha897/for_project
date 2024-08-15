@@ -1,0 +1,27 @@
+{% extends "base.jinja" %}
+{% block base %}
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/gbt.css')}}">
+    <div class="chat-body">
+        <ul class="list-chat">
+
+            <li class="card gbt-chat">
+                <div class="card-body">
+                    مرحبا {{current_user.username}},كيف يمكنني مساعدتك اليوم؟
+                </div>
+            </li>
+        </ul>
+
+        <div class="controller-chat">
+            <form class="d-flex" role="search">
+                <textarea class="form-control me-2" id="input-gbt" placeholder="Search" aria-label="Search"></textarea>
+                <button class="btn btn-outline-success" id="Button-gbt" type="button">ارسال</button>
+            </form>
+        </div>
+
+    </div>
+<script src="{{url_for('static', filename='js/gbt.js')}}"></script>
+</body>
+
+</html>
+{% endblock base %}

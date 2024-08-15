@@ -1,0 +1,102 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    {{ super() }}
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
+{% endblock %}
+
+{% block base %}
+<div style="margin: 20px;">
+    <h1 style="margin:40px">سلة المشتريات</h1>
+    <table style="width: 100%;">
+            {% if total_price > 0 %}
+
+        <thead>
+            <tr>
+
+                <td style="text-align: center;">الغلاف</td>
+                <td>الاسم</td>
+                <td>السعر</td>
+                <td>الرقم التعريفي</td>
+
+            </tr>
+        </thead>
+        {% else %}
+        <h4 style="margin:40px">سلة المشتريات فارغة</h4>
+        {% endif %}
+        <tbody>
+            {% if book_objects %}
+
+            {% for book in book_objects %}
+            {# <a href="{{url_for('book_controller.audioBook', id = book.id)}}"> #}
+                <tr>
+
+                    <td style="width: 140px;text-align:center"><a
+                            href="{{url_for('book_controller.book', id = book.id)}}"><img style="height: 70px;"
+                                src="{{url_for('static',filename='image/book/'+book.book_cover)}}"></a></td>
+                    <td>{{book.title}}</td>
+
+                    <td>{{"$"~book.price}}</td>
+
+                    <td class="item-id pe-3">{{ book.id }}</td>
+                    
+                    <td>
+                        <form action="{{url_for('busket_controller.delete_from_busket')}}" method="post">
+                            <input type="hidden" name="book_id" value={{book.id}}>
+                            <button type="submit" class="btn btn-outline-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
+                                </svg>
+                                </button>
+                        </form>
+                    </td>
+                </tr>
+
+                {% endfor %}
+                {% endif %}
+                {% if audio_book_objects %}
+
+                {% for audio_book in audio_book_objects %}
+                <tr>
+                    <td style="width: 140px;text-align:center"><a
+                            href="{{url_for('book_controller.audioBook', id = audio_book.id)}}"><img
+                                style="height: 70px;"
+                                src="{{url_for('static',filename='image/audio/'+audio_book.book_cover)}}"></a></td>
+                    <td>{{audio_book.title}}</td>
+                    <td>{{"$"~audio_book.price}}</td>
+                    <td>
+                        <form action="{{url_for('busket_controller.delete_from_busket')}}" method="post">
+                            <input type="hidden" name="audio_book_id" value={{audio_book.id}}>
+                            <button type="submit" class="btn btn-outline-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
+                                </svg>
+                                </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+        </tbody>
+    </table>
+        {% if total_price > 0 %}
+    <div style="margin:40px">
+        <h3>المبلغ الكلي: {{"$"~total_price}}</h3>
+        <form id="payment-form" method="post" style="margin: 20px 0px;" action="{{url_for('stripe_controller.create_checkout_session')}}">
+            <button type="submit" class="btn btn-success" id="payment-btn">الدفع</button>
+        </form>
+    </div>
+        {% endif %}
+
+</div>
+
+{% endblock base %}

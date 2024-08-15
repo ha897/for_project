@@ -1,0 +1,108 @@
+{% extends "base.jinja" %}
+{% block base %}
+
+
+<div style="display:flex;width:100%;justify-content: space-evenly;margin:20px 0px">
+    <div style="width:30%">
+        {%if book %}
+        <img class="img-thumbnail" style="width:100%"
+            src="{{url_for('static',filename='image/book/'+book.book_cover)}}">
+        {%elif audio_book %}
+        <img class="img-thumbnail" style="width:100%"
+            src="{{url_for('static',filename='image/audio/'+audio_book.book_cover)}}">
+        {%endif %}
+    </div>
+
+    <div class="card" style="width:65%;margin:0px">
+        <div class="card-body">
+            {%if book %}
+            {# عرض كتاب ورقي #}
+            <h1 class="card-title">{{book.title}}</h1>
+            <p style="min-height: 300px;" class="card-text">{{book.description}}</p>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>السعر</td>
+                        <td>{{book.price ~ '$'}}</td>
+                    </tr>
+                    {# كتاب عادي #}
+                    <tr>
+                        <td>عدد الصفحات</td>
+                        <td>{{book.pages}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>التصنيف</td>
+                        <td>{{book.category|replace("CATEGORY.", "")}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <form method="post" action="{{url_for('busket_controller.add_to_busket')}}">
+                <input type="hidden" name="book_id" value="{{book.id}}">
+                <button type="submit" id="buttom" class="btn btn-success">اضافة لسلة المشتريات</button>
+            </form>
+            {% if current_user.is_admin %}
+            <div style="position: absolute;bottom: 16px;left: 16px;display:flex">
+
+                <form style="margin-left:12px" method="post" action="{{url_for('book_controller.delete_book')}}">
+                    <input type="hidden" name="book_id" value="{{book.id}}">
+                    <button type="submit" class="btn btn-danger">حذف الكتاب</button>
+                </form>
+                <form method="post" action="{{url_for('book_controller.update_book',book_id=book.id)}}">
+                    {# <input type="hidden" name="book_id" value="{{book.id}}"> #}
+                    <button type="submit" class="btn btn-primary">تعديل الكتاب</button>
+                </form>
+            </div>
+            {% endif %}
+
+            {% elif audio_book %}
+            {# عرض كتاب صوتي #}
+            <h1 class="card-title">{{audio_book.title}}</h1>
+            <p style="min-height: 300px;" class="card-text">{{audio_book.description}}</p>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>السعر</td>
+                        <td>{{audio_book.price ~ '$'}}</td>
+                    </tr>
+                    <tr>
+                        <td>المدة</td>
+                        <td>{{audio_book.duration}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>التصنيف</td>
+                        <td>{{audio_book.category|replace("CATEGORY.", "")}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <form method="post" action="{{url_for('busket_controller.add_to_busket')}}">
+                <input type="hidden" name="audio_book_id" value="{{audio_book.id}}">
+                <button type="submit" id="buttom" class="btn btn-success">اضافة لسلة المشتريات</button>
+            </form>
+
+            {% if current_user.is_admin %}
+            <form style="position: absolute;bottom: 16px;left: 16px;" method="post"
+                action="{{url_for('book_controller.delete_book')}}">
+                <input type="hidden" name="audio_book_id" value="{{audio_book.id}}">
+                <button type="submit" id="buttom" class="btn btn-success">حذف الكتاب</button>
+            </form>
+            <div style="position: absolute;bottom: 16px;left: 16px;display:flex">
+ 
+                <form style="margin-left:12px" method="post" action="{{url_for('book_controller.delete_book')}}">
+                    <input type="hidden" name="audio_book_id" value="{{audio_book.id}}">
+                    <button type="submit" class="btn btn-danger">حذف الكتاب</button>
+                </form>
+
+                <form method="post" action="{{url_for('book_controller.update_audio_book',book_id=audio_book.id)}}">
+                    <button type="submit" class="btn btn-primary">تعديل الكتاب</button>
+                </form>
+            </div>
+            {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock base %}
